@@ -18,10 +18,12 @@ const Page = () => {
     resolver:zodResolver(AuthCredentialValidator)
   })
 
-  
+  const {mutate, isLoading} = trpc.auth.createPayloadUser.useMutation({
+
+  })
 
   const onSubmit = ({email,password}:TAuthCredentialValidator) =>{
-
+    mutate({email,password})
   }
   return (
     <>
@@ -55,6 +57,7 @@ const Page = () => {
                 <Label className=" mb-2" htmlFor="password">Password</Label>
                 <Input
                 {...register("password")}
+                type="password"
                 className={cn({"focus-visible:ring-red-500": errors.password})}
                 placeholder="Password"/>
               </div>
