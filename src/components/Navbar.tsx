@@ -4,10 +4,15 @@ import NavItems from "./NavItems";
 import Cart from "./Cart";
 import { Icons } from "./Icons";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+import { getServerSideUser } from "@/lib/payload-utlis";
+import { cookies } from "next/headers";
+import UserAccountNav from "./UserAccountNav";
 
 
-const Navbar = () => {
-    const user = null     
+const Navbar = async() => {
+    const nextCookie = cookies()
+    const {user} = await getServerSideUser(nextCookie)
+    
     return(
         <div className=" bg-white sticky z-50 top-0 inset-x-0 h-16">
             <header className=" relative bg-white">
@@ -30,7 +35,7 @@ const Navbar = () => {
                                         Sign In</Link>}
 
                                         {user ? null : <span className=" h-6 w-px bg-gray-200" aria-hidden="true"/>}
-                                        {user ?( <p></p>) :( <Link href="/sign-up" className={buttonVariants({variant:"ghost"})}>
+                                        {user ?( <UserAccountNav/>) :( <Link href="/sign-up" className={buttonVariants({variant:"ghost"})}>
                                             Create an Account</Link>)}
 
                                             {user ?( <span className=" h-6 w-px bg-gray-200" aria-hidden="true"/> ): null}
