@@ -35,7 +35,7 @@ const Navbar = async() => {
                                         Sign In</Link>}
 
                                         {user ? null : <span className=" h-6 w-px bg-gray-200" aria-hidden="true"/>}
-                                        {user ?( <UserAccountNav/>) :( <Link href="/sign-up" className={buttonVariants({variant:"ghost"})}>
+                                        {user ?( <UserAccountNav user={user}/>) :( <Link href="/sign-up" className={buttonVariants({variant:"ghost"})}>
                                             Create an Account</Link>)}
 
                                             {user ?( <span className=" h-6 w-px bg-gray-200" aria-hidden="true"/> ): null}

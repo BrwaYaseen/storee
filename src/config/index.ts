@@ -1,7 +1,7 @@
 export const PRODUCT_CATEGORIES = [
     {
         label: "UI Kits",
-        Value: "ui_kits" as const,
+        value: "ui_kits" as const,
         featured:[
             {
                 name: "Editors picks",
@@ -22,7 +22,7 @@ export const PRODUCT_CATEGORIES = [
     },
     {
         label: "Icons",
-        Value: "icons" as const,
+        value: "icons" as const,
         featured:[
             {
                 name: "Favorite Icons Picks",
