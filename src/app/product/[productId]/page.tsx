@@ -1,5 +1,10 @@
+import ImageSlider from "@/components/ImageSlider"
 import MaxWidthWrapper from "@/components/MaxWidthWrapper"
+import { PRODUCT_CATEGORIES } from "@/config"
+import { getPayloadClient } from "@/get-payload"
+import { formatPrice } from "@/lib/utils"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
 interface PageProps {
     params: {
@@ -13,7 +18,38 @@ const BREADCRUMBS = [
 ]
 
 
-const Page = ({params}: PageProps) => {
+const Page = async({params}: PageProps) => {
+    const {productId} = params
+
+    const payload = await getPayloadClient()
+
+    const {docs: products} = await payload.find({
+        collection: "products",
+        limit: 1,
+        where: {
+            id: {
+                equals: productId
+            },
+            approvedForSale: {
+                equals: "approved"
+            },
+        },
+    })
+
+    const [product] = products
+
+    if(!product) return notFound()
+
+        const label = PRODUCT_CATEGORIES.find(
+            ({value}) => value === product.category
+        )?.label
+
+        const validUrls = product.images
+    .map(({ image }) =>
+      typeof image === 'string' ? image : image.url
+    )
+    .filter(Boolean) as string[]
+
   return (
     <MaxWidthWrapper className=" bg-white">
         <div className=" bg-white">
@@ -39,7 +75,38 @@ const Page = ({params}: PageProps) => {
                             </li>
                         ))}
                     </ol>
+
+                    <div className=" mt-4">
+                        <h1 className=" text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                            {product.name}
+                        </h1>
+                    </div>
+
+                    <section className=" mt-4">
+                        <div className=" flex items-center">
+                            <p className=" font-medium text-gray-800">
+                                {formatPrice(product.price)}
+                            </p>
+
+                            <div className=" ml-4 border-l text-muted-foreground border-gray-300 pl-4">
+                                {label}
+                            </div>
+                        </div>
+
+                        <div className=" mt-4 space-y-6">
+                            <p className=" text-base text-muted-foreground">
+                                {product.discription}
+                            </p>
+                        </div>
+                    </section>
                 </div>
+                <div className='mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center'>
+                 <div className='aspect-square rounded-lg'>
+                   <ImageSlider urls={validUrls} />
+                 </div>
+                </div>
+
+                <div className=""></div>
             </div>
         </div>
     </MaxWidthWrapper>
