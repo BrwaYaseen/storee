@@ -24,12 +24,16 @@ export const useCart = create<CartState>()(
         set((state) => {
           return { items: [...state.items, { product }] }
         }),
-      removeItem: (id) =>
-        set((state) => ({
-          items: state.items.filter(
-            (item) => item.product.id !== id
-          ),
-        })),
+        removeItem: (id) =>
+          set((state) => {
+            const indexToRemove = state.items.findIndex(item => item.product.id === id);
+            if (indexToRemove !== -1) {
+              const updatedItems = [...state.items];
+              updatedItems.splice(indexToRemove, 1);
+              return { items: updatedItems };
+            }
+            return { items: state.items };
+          }),
       clearCart: () => set({ items: [] }),
     }),
     {
