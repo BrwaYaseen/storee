@@ -18,29 +18,31 @@ export const Products: CollectionConfig = {
     },
     access: {},
     hooks:{
-        beforeChange:[addUser, async (args) => {
-            if(args.operation === "create"){
+        beforeChange: [
+            addUser,
+            async (args) => {
+              if (args.operation === 'create') {
                 const data = args.data as Product
-
-                const createdProduct = await stripe.products.create({
+      
+                const createdProduct =
+                  await stripe.products.create({
                     name: data.name,
                     default_price_data: {
-                        currency:"USD",
-                        unit_amount: Math.round(data.price * 100),
-                    }
-                })
-
+                      currency: 'USD',
+                      unit_amount: Math.round(data.price * 100),
+                    },
+                  })
+      
                 const updated: Product = {
-                    ...data,
-                    stripeId:createdProduct.id,
-                    priceId: createdProduct.default_price as string
+                  ...data,
+                  stripeId: createdProduct.id,
+                  priceId: createdProduct.default_price as string,
                 }
-
+      
                 return updated
-            } else if(args.operation === "update"){
-                
+              } else if (args.operation === 'update') {
                 const data = args.data as Product
-
+      
                 const updatedProduct =
                   await stripe.products.update(data.stripeId!, {
                     name: data.name,
