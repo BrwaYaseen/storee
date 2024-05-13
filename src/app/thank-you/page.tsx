@@ -4,10 +4,12 @@ import { getServerSideUser } from "@/lib/payload-utlis"
 import payload from "payload"
 import { notFound, redirect } from "next/navigation"
 import { getPayloadClient } from "@/get-payload"
-import { Product } from "@/payload-types"
+import { Product, User } from "@/payload-types"
 import { PRODUCT_CATEGORIES } from "@/config"
 import { formatPrice } from "@/lib/utils"
 import Link from "next/link"
+import PaymentStatus from "@/components/PaymentStatus"
+
 
 interface PageProps {
   searchParams: {
@@ -163,9 +165,11 @@ const Page = async({searchParams}:PageProps) => {
                   </p>
                 </div>
               </div>
-
-              
-              
+              <PaymentStatus
+                isPaid={order._isPaid}
+                orderEmail={(order.user as User).email}
+                orderId={order.id}
+              />
 
               <div className='mt-16 border-t border-gray-200 py-6 text-right'>
                 <Link
