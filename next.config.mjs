@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+// @type {import('next').NextConfig}
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -10,7 +10,7 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { isServer }) => {
     // Handle .node files
     config.module.rules.push({
       test: /\.node$/,
