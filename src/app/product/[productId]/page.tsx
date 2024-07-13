@@ -5,6 +5,7 @@ import ProductReel from "@/components/ProductReel";
 import { PRODUCT_CATEGORIES } from "@/config";
 import { getPayloadClient } from "@/get-payload";
 import { formatPrice } from "@/lib/utils";
+import { Config, Product } from "@/payload-types";
 import { Check, Shield } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -38,7 +39,7 @@ const Page = async ({ params }: PageProps) => {
     },
   });
 
-  const [product] = products;
+  const [product] = products as Product[];
 
   if (!product) return notFound();
 
@@ -47,9 +48,11 @@ const Page = async ({ params }: PageProps) => {
   )?.label;
 
   const validUrls = product.images
-    .map(({ image }) => (typeof image === "string" ? image : image.url))
+    .map(({ image }) => {
+      if (typeof image === "string") return image;
+      return image.url || null;
+    })
     .filter(Boolean) as string[];
-
   return (
     <MaxWidthWrapper className="bg-white">
       <div className="bg-white">
