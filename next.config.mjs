@@ -18,24 +18,6 @@ const nextConfig = {
       use: "node-loader",
     });
 
-    // Handle require.extensions issue by using a custom loader if needed
-    config.module.rules.push({
-      test: /\.js$/,
-      include: /node_modules\/payload/,
-      use: [
-        {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-            plugins: [
-              "@babel/plugin-proposal-class-properties",
-              "@babel/plugin-transform-runtime",
-            ],
-          },
-        },
-      ],
-    });
-
     // Ignore specific warnings
     config.ignoreWarnings = [
       { module: /node_modules\/payload/ },
