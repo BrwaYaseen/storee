@@ -47,11 +47,9 @@ const Page = async ({ params }: PageProps) => {
   )?.label;
 
   const validUrls = product.images
-    .map(({ image }) => {
-      if (typeof image === "string") return image;
-      return image.url || null;
-    })
+    .map(({ image }) => (typeof image === "string" ? image : image.url))
     .filter(Boolean) as string[];
+
   return (
     <MaxWidthWrapper className="bg-white">
       <div className="bg-white">
