@@ -40,7 +40,7 @@ const Page = async ({ params }: PageProps) => {
   });
 
   // Assert that products is an array of Product
-  const [product]: Product[] = products;
+  const [product] = products;
 
   if (!product) return notFound();
 
