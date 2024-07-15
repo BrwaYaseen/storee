@@ -75,7 +75,7 @@ var createContext = function (_a) {
     var req = _a.req, res = _a.res;
     return ({
         req: req,
-        res: res
+        res: res,
     });
 };
 var start = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -88,7 +88,7 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
                         req.rawBody = buffer;
                     },
                 });
-                app.post('/api/webhooks/stripe', webhookMiddleware, webhook_1.stripeWebhookHandler);
+                app.post("/api/webhooks/stripe", webhookMiddleware, webhook_1.stripeWebhookHandler);
                 return [4 /*yield*/, (0, get_payload_1.getPayloadClient)({
                         initOptions: {
                             express: app,
@@ -98,13 +98,13 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
                                     return [2 /*return*/];
                                 });
                             }); },
-                        }
+                        },
                     })];
             case 1:
                 payload = _a.sent();
                 app.use("/api/trpc", trpcExpress.createExpressMiddleware({
                     router: trpc_1.appRouter,
-                    createContext: createContext
+                    createContext: createContext,
                 }));
                 app.use(function (req, res) { return (0, next_utils_1.nextHandler)(req, res); });
                 next_utils_1.nextApp.prepare().then(function () {

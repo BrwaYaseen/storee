@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatPrice = exports.cn = void 0;
+exports.cn = cn;
+exports.formatPrice = formatPrice;
 var clsx_1 = require("clsx");
 var tailwind_merge_1 = require("tailwind-merge");
 function cn() {
@@ -10,7 +11,6 @@ function cn() {
     }
     return (0, tailwind_merge_1.twMerge)((0, clsx_1.clsx)(inputs));
 }
-exports.cn = cn;
 function formatPrice(price, options) {
     if (options === void 0) { options = {}; }
     var _a = options.currency, currency = _a === void 0 ? "USD" : _a, _b = options.notation, notation = _b === void 0 ? "compact" : _b;
@@ -22,4 +22,3 @@ function formatPrice(price, options) {
         maximumSignificantDigits: 2
     }).format(numricPrice);
 }
-exports.formatPrice = formatPrice;

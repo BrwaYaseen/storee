@@ -7,6 +7,8 @@ import { inferAsyncReturnType } from "@trpc/server";
 import bodyParser from "body-parser";
 import { stripeWebhookHandler } from "./webhook";
 import { IncomingMessage } from "http";
+import nextBuild from "next/dist/build";
+import path from "path";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -41,6 +43,18 @@ const start = async () => {
       },
     },
   });
+
+  if (process.env.NEXT_BUILD) {
+    app.listen(PORT, async () => {
+      payload.logger.info("Nextjs is building");
+      //@ts-expect-error
+      await nextBuild(path.join(__dirname, "../"));
+
+      process.exit();
+    });
+
+    return;
+  }
 
   app.use(
     "/api/trpc",
