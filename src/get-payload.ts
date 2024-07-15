@@ -50,7 +50,7 @@ export const getPayloadClient = async ({
         fromName: "Storee",
       },
       secret: process.env.PAYLOAD_SECRET,
-      local: !initOptions?.express, // Simplified boolean check
+      local: initOptions?.express ? false : true,
       ...(initOptions || {}),
     });
   }
