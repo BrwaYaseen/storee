@@ -14,8 +14,12 @@
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
     "lint": "next lint"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "resolutions": {
-    "cliui": "7.0.2"
+    "cliui": "7.0.2",
+    "punycode": "^2.1.0"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -50,6 +54,7 @@
     "react-email": "^2.1.5",
     "react-hook-form": "^7.51.3",
     "resend": "^3.4.0",
+    "sharp": "^0.32.6",
     "sonner": "^1.4.41",
     "stripe": "^15.6.0",
     "swiper": "^11.1.1",

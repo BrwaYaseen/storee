@@ -1,17 +1,13 @@
-// next.config.js
+// next.config.mjs
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "localhost",
-      },
-      {
-        protocol: "https",
-        hostname: "storee-production.up.railway.app",
-      },
-    ],
+    domains: ["localhost", "storee-production.up.railway.app"],
+    unoptimized: process.env.NODE_ENV === "production",
+  },
+  experimental: {
+    webpackBuildWorker: true,
   },
   webpack: (config, { isServer }) => {
     // Handle .node files
@@ -22,14 +18,19 @@ const nextConfig = {
 
     // Ignore specific warnings
     config.ignoreWarnings = [
-      { module: /node_modules\/payload/ },
-      { module: /node_modules\/express/ },
+      {
+        message:
+          /Critical dependency: the request of a dependency is an expression/,
+      },
     ];
 
     // Handle sharp on the server-side
     if (isServer) {
       config.externals.push("sharp");
     }
+
+    // Disable cache to address serialization issues
+    config.cache = false;
 
     return config;
   },
