@@ -6,8 +6,10 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-        pathname: "**",
-        port: "3000",
+      },
+      {
+        protocol: "https",
+        hostname: "storee-production.up.railway.app",
       },
     ],
   },
