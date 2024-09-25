@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "drizzle-orm": "^0.33.0",
     "lucide-react": "^0.441.0",
     "next": "^14.2.13",
     "react": "^18.3.1",
@@ -23,6 +25,8 @@
     "@types/node": "20.11.30",
     "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.24.2",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.4",
     "postcss": "8.4.38",
