@@ -5,12 +5,9 @@ import Link from "next/link";
 
 export default function Home() {
   const categories = [
-    { name: "Women's Fashion", image: "/placeholder.svg?height=400&width=400" },
     { name: "Men's Clothing", image: "/placeholder.svg?height=400&width=400" },
     { name: "Accessories", image: "/placeholder.svg?height=400&width=400" },
     { name: "Shoes", image: "/placeholder.svg?height=400&width=400" },
-    { name: "Beauty", image: "/placeholder.svg?height=400&width=400" },
-    { name: "Home & Living", image: "/placeholder.svg?height=400&width=400" },
   ];
 
   const featuredProducts = [
@@ -36,8 +33,8 @@ export default function Home() {
     },
   ];
   return (
-    <main className="flex-1">
-      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-r from-purple-900 via-gray-900 to-black text-white">
+    <main className="flex-1 bg-gradient-to-r from-purple-900 via-gray-900 to-black">
+      <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48  text-white">
         <div className="container px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
             <Image
