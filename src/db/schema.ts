@@ -2,12 +2,15 @@ import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
 import { sql } from "drizzle-orm";
 
+export const userRoles = ["admin", "mod", "user"] as const;
+
 export const profile = sqliteTable("profile", {
   id: text("id").primaryKey(),
   userId: text("user_id").notNull(),
   imageUrl: text("image_url"),
   name: text("name").notNull(),
   email: text("email").notNull(),
+  role: text("role", { enum: userRoles }).notNull().default("user"),
   createdAt: integer("created_at", { mode: "timestamp" }).default(
     sql`CURRENT_TIMESTAMP`
   ),
@@ -28,7 +31,9 @@ export const products = sqliteTable("products", {
   price: integer("price").notNull(), // Store price in cents
   stock: integer("stock").notNull().default(0),
   sizes: text("sizes"), // Store as JSON string, e.g., '["S", "M", "L"]'
-  category: text("category", { enum: categories }).notNull(),
+  category: text("category", { enum: categories })
+    .notNull()
+    .default("clothing"),
   imageUrl: text("image_url"),
   createdAt: integer("created_at", { mode: "timestamp" }).default(
     sql`CURRENT_TIMESTAMP`
